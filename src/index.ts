@@ -9,10 +9,10 @@ dotenv.config();
 const port = process.env.PORT || 3000;
 const app: Express = express();
 
-IOService.initializeIO(app);
+const { server } = IOService.initializeIO(app);
 console.log(process.env.PORT);
 app.use(`${process.env.API_ENDPOINT}/lamp`, lampRoutes);
 
-app.listen(port, () => {
+server.listen(port, () => {
   console.log(`[server]: Server is running at http://localhost:${port}`);
 });

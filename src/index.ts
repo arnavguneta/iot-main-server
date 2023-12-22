@@ -1,13 +1,15 @@
 import express, { Express } from 'express';
 import dotenv from 'dotenv';
 import lampRoutes from '@routes/lampRoutes';
+import IOService from '@services/ioService';
 
 dotenv.config();
 
-const app: Express = express();
 const port = process.env.PORT || 3000;
+const app: Express = express();
 
-// Use routes
+IOService.initializeIO(app);
+
 app.use(`${process.env.API_ENDPOINT}/lamp`, lampRoutes);
 
 app.listen(port, () => {

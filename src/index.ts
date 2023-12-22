@@ -1,3 +1,4 @@
+import 'module-alias/register';
 import express, { Express } from 'express';
 import dotenv from 'dotenv';
 import lampRoutes from '@routes/lampRoutes';
@@ -9,7 +10,7 @@ const port = process.env.PORT || 3000;
 const app: Express = express();
 
 IOService.initializeIO(app);
-
+console.log(process.env.PORT);
 app.use(`${process.env.API_ENDPOINT}/lamp`, lampRoutes);
 
 app.listen(port, () => {

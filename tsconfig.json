@@ -115,7 +115,7 @@
     }
   },
   "include": [
-    "src/**/*" // Path to your TypeScript source files
+    "**/*" // Path to your TypeScript source files
   ],
   "exclude": [
     "node_modules"

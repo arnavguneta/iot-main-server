@@ -1,35 +1,42 @@
 import { Server } from 'socket.io';
-import {Express} from 'express';
+import { Express } from 'express';
 import http from 'http';
 
 let ioInstance: Server;
 
-const initializeIO = (app: Express) => {
-  if (!ioInstance) {
-    const server = http.createServer(app);
-    const io: Server = new Server(server);
+type EventDefinitions = {
+    [eventName: string]: unknown; 
+  };
 
-    io.on('connection', (socket) => {
-      console.log('A client connected.');
+const IOService = {
+    initializeIO: (app: Express) => {
+        if (!ioInstance) {
+            const server = http.createServer(app);
+            const io: Server = new Server(server);
 
-      socket.on('disconnect', () => {
-        console.log('A client disconnected.');
-      });
-    });
+            io.on('connection', (socket) => {
+                console.log('A client connected.');
 
-    ioInstance = io;
-  }
-  return ioInstance;
+                socket.on('disconnect', () => {
+                    console.log('A client disconnected.');
+                });
+            });
+            ioInstance = io;
+        }
+        return ioInstance;
+    },
+    getIO: () => {
+        return ioInstance;
+    },
+    emitSafely: <Ev extends string>(
+        event: Ev, data?: EventDefinitions[Ev]
+    ) => {
+        const ioInstance = IOService.getIO();
+        if (!ioInstance) {
+            throw new Error('Socket.IO instance not available');
+        }
+        ioInstance.emit(event, data);
+    }
 };
 
-const getIO = () => {
-  if (!ioInstance) {
-    throw new Error('Socket.IO instance not initialized');
-  }
-  return ioInstance;
-};
-
-export default {
-  initializeIO,
-  getIO,
-};
+export default IOService;

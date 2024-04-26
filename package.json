@@ -4,7 +4,7 @@
   "description": "Hub to manage various connections from and to IoT connections via HTTP REST Api or a Client/Socket connections. Various integrations include Discord, Custom Front Ends, ESP32 and RPIs.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "nodemon src/test/clientSocket.ts",
     "dev": "nodemon src/index.ts"
   },
   "keywords": [],

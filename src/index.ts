@@ -6,11 +6,12 @@ import IOService from '@services/ioService';
 
 dotenv.config();
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 const app: Express = express();
 
 const { server } = IOService.initializeIO(app);
-console.log(process.env.PORT);
+
+console.log(port);
 app.use(`${process.env.API_ENDPOINT}/lamp`, lampRoutes);
 
 server.listen(port, () => {

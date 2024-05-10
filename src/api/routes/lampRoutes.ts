@@ -5,5 +5,6 @@ import lampController from '@controllers/lampController';
 router.get('/power/toggle', lampController.toggleLampPower);
 router.get('/power/on', lampController.turnLampOn);
 router.get('/power/off', lampController.turnLampOff);
+router.get('/brightness', lampController.toggleLampPower);
 
 export default router;

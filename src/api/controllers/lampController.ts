@@ -10,17 +10,19 @@ const lampController = {
             res.status(500).json({ error: (<Error>err).message });
         }
     },
-    turnLampOn: async (req: Request, res: Response) => {
+    setLampPower: async (req: Request, res: Response) => {
         try {
-            const data = await LampService.setPowerState(true);
+            const powerState = req.params.state === 'on';
+            const data = await LampService.setPowerState(powerState);
             res.json(data);
         } catch (err) {
             res.status(500).json({ error: (<Error>err).message });
         }
     },
-    turnLampOff: async (req: Request, res: Response) => {
+    setBrightness: async (req: Request, res: Response) => {
         try {
-            const data = await LampService.setPowerState(false);
+            const brightnessLevel = req.params.level || 'high';
+            const data = await LampService.setBrightness(brightnessLevel);
             res.json(data);
         } catch (err) {
             res.status(500).json({ error: (<Error>err).message });
